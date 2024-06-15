@@ -25,13 +25,13 @@ public class FileUitls {
    *               otherwise, the file will be overwritten.
    * @throws IOException If an I/O error occurs while writing to the file.
    */
-  public static void writeArrayToFile(
+  public static <T> void writeArrayToFile(
       File file,
-      String[] lines,
+      T[] lines,
       boolean append) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, append))) {
-      for (String line : lines) {
-        writer.write(line);
+      for (T line : lines) {
+        writer.write(line.toString());
         writer.newLine();
       }
     }

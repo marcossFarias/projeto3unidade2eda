@@ -1,5 +1,9 @@
 package com.uepb.utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -19,30 +23,28 @@ public class MassGeneratorUtils {
   }
 
   /**
-   * Generates an array of unique integers with the specified size.
+   * Generates an array of unique Integers with the specified size.
    *
    * @param size the desired size of the array
-   * @return an array of unique integers
+   * @return an array of unique Integers
    */
-  public static int[] generateUniqueIntArray(int size) {
-
+  public static Integer[] generateUniqueIntegerArray(int size) {
     return random.ints(size, RANGE_LOWER_BOUND, RANGE_UPPER_BOUND)
         .parallel()
         .distinct()
         .boxed()
-        .mapToInt(Integer::intValue)
-        .toArray();
+        .toArray(Integer[]::new);
   }
 
   /**
-   * Generates an array of unique integers within a specified size and range.
+   * Generates an array of unique Integers within a specified size and range.
    *
    * @param size            The desired size of the array.
    * @param rangeLowerBound The lower bound of the range (inclusive).
    * @param rangeUpperBound The upper bound of the range (exclusive).
-   * @return An array of unique integers within the specified range.
+   * @return An array of unique Integers within the specified range.
    */
-  public static int[] generateUniqueIntArray(
+  public static Integer[] generateUniqueIntegerArray(
       int size,
       int rangeLowerBound,
       int rangeUpperBound) {
@@ -50,23 +52,37 @@ public class MassGeneratorUtils {
         .parallel()
         .distinct()
         .boxed()
-        .mapToInt(Integer::intValue)
-        .toArray();
+        .toArray(Integer[]::new);
   }
 
   /**
-   * Generates an array of integers with the specified size and range.
+   * Generates an array of Integers with the specified size and range.
    * The array may contain repeated values.
    *
    * @param size  the desired size of the array
    * @param range the maximum value (inclusive) that can be generated
-   * @return an array of integers within the specified range
+   * @return an array of Integers within the specified range
    */
-  public static int[] generateRepeatedIntArray(int size, int range) {
-    int[] repeatedArray = new int[size];
+  public static Integer[] generateRepeatedIntegerArray(int size, int range) {
+    Integer[] repeatedArray = new Integer[size];
 
     Arrays.setAll(repeatedArray, i -> random.nextInt(range + 1));
 
     return repeatedArray;
+  }
+
+  public static void main(String[] args) throws IOException {
+    Integer[] unique100kArray = generateUniqueIntegerArray(100_000, 0, 1_000_000);
+    Path unique100kArrayPath = Paths.get("resources/databases/unique100kArray.txt");
+    File unique100kArrayFile = unique100kArrayPath.toFile();
+
+    FileUitls.writeArrayToFile(unique100kArrayFile, unique100kArray, false);
+
+
+    Integer[] repeated300kArray = generateUniqueIntegerArray(300_000, 0, 1_000_000);
+    Path repeated300kPath = Paths.get("resources/databases/repeated300kArray.txt");
+    File repeated300kArrayFile = repeated300kPath.toFile();
+
+    FileUitls.writeArrayToFile(repeated300kArrayFile, repeated300kArray, false);
   }
 }
