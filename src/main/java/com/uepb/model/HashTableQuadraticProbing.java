@@ -36,7 +36,8 @@ public class HashTableQuadraticProbing<K, V> extends HashTableOpenAddressingBase
 
   // No setup required for quadratic probing.
   @Override
-  protected void setupProbing(K key) {}
+  protected void setupProbing(K key) {
+  }
 
   @Override
   protected int probe(int x) {
@@ -54,7 +55,8 @@ public class HashTableQuadraticProbing<K, V> extends HashTableOpenAddressingBase
   @Override
   protected void adjustCapacity() {
     int pow2 = Integer.highestOneBit(capacity);
-    if (capacity == pow2) return;
+    if (capacity == pow2)
+      return;
     increaseCapacity();
   }
 }
