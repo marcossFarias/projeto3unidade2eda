@@ -2,13 +2,9 @@ package com.uepb.model;
 
 /**
  * Hash table with open addressing.
- *
- * <p>
  * This contains some common methods of Map interface, including size, isEmpty,
  * put, get, remove,
  * containsKey
- *
- * <p>
  * For open addressing hash table, we use 100% of the inner array space, and it
  * is a close
  * hashing. When collision occurs, it has to find an empty position to store the
@@ -18,16 +14,12 @@ package com.uepb.model;
  * default probing method is linear probing, which means if the index is
  * occupied, it automatically
  * move to the next index.
- *
- * <p>
  * I have improved it by adding resize method. When the space is full, it will
  * automatically
  * expand the capacity for 2 times. Also, when then size is one fourth of the
  * capacity, it will
  * shrink its capacity to half. So we can add elements constantly and use the
  * space efficiently.
- *
- * <p>
  * I also added test main method, you can invoke this class to see what is
  * happening during the
  * put and remove methods.
@@ -145,8 +137,6 @@ public class HashTableOpenAddressing<K, V> {
 
   /**
    * Search method.
-   *
-   * <p>
    * Search an element in hash table.
    */
   public V get(K key) {
@@ -159,8 +149,9 @@ public class HashTableOpenAddressing<K, V> {
         return table[index].value;
       }
       index = linearProbing(index);
-      if (index == startIndex)
+      if (index == startIndex) {
         return null;
+      }
     }
     printInnerVar();
     return null;
@@ -172,8 +163,6 @@ public class HashTableOpenAddressing<K, V> {
 
   /**
    * Remove method.
-   *
-   * <p>
    * Remove an element from the hash table.
    */
   public V remove(K key) {
@@ -189,8 +178,9 @@ public class HashTableOpenAddressing<K, V> {
         size--;
       }
       index = linearProbing(index);
-      if (index == startIndex)
+      if (index == startIndex) {
         break;
+      }
     }
     if (size == capacity() / 4 && capacity() / 2 != 0) {
       resize(capacity() / 2);
