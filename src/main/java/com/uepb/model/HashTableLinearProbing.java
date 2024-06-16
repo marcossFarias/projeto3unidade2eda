@@ -4,7 +4,7 @@
  *
  * @author William Fiset, william.alexandre.fiset@gmail.com
  */
-package com.williamfiset.algorithms.datastructures.hashtable;
+package com.uepb.model;
 
 public class HashTableLinearProbing<K, V> extends HashTableOpenAddressingBase<K, V> {
 
