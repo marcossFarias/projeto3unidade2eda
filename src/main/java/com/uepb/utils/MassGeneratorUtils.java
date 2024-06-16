@@ -71,13 +71,19 @@ public class MassGeneratorUtils {
     return repeatedArray;
   }
 
+  /**
+   * It generates two arrays:
+   * - An array of 100,000 unique integers between 0 and 1,000,000(inclusive),
+   * saved to "unique100kArray.txt".
+   * - An array of 300,000 repeated integers between 0 and 1,000,000 (inclusive),
+   * saved to "repeated300kArray.txt".
+   */
   public static void main(String[] args) throws IOException {
     Integer[] unique100kArray = generateUniqueIntegerArray(100_000, 0, 1_000_000);
     Path unique100kArrayPath = Paths.get("resources/databases/unique100kArray.txt");
     File unique100kArrayFile = unique100kArrayPath.toFile();
 
     FileUitls.writeArrayToFile(unique100kArrayFile, unique100kArray, false);
-
 
     Integer[] repeated300kArray = generateUniqueIntegerArray(300_000, 0, 1_000_000);
     Path repeated300kPath = Paths.get("resources/databases/repeated300kArray.txt");
