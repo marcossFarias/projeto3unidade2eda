@@ -13,7 +13,7 @@ import java.util.List;
 
 @SuppressWarnings("unchecked")
 public abstract class HashTableOpenAddressingBase<K, V> implements Iterable<K> {
-
+  public int collisionCount;
   protected double loadFactor;
   protected int capacity, threshold, modificationCount;
 
@@ -34,6 +34,7 @@ public abstract class HashTableOpenAddressingBase<K, V> implements Iterable<K> {
 
   protected HashTableOpenAddressingBase() {
     this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
+    collisionCount = 0;
   }
 
   protected HashTableOpenAddressingBase(int capacity) {
@@ -195,6 +196,8 @@ public abstract class HashTableOpenAddressingBase<K, V> implements Iterable<K> {
       } else if (keys[i] != null) {
         // The key we're trying to insert already exists in the hash-table,
         // so update its value with the most recent value
+        collisionCount++;
+
         if (keys[i].equals(key)) {
 
           V oldValue = values[i];
@@ -408,5 +411,14 @@ public abstract class HashTableOpenAddressingBase<K, V> implements Iterable<K> {
         throw new UnsupportedOperationException();
       }
     };
+  }
+
+  public boolean containsValue(int intValue) {
+    for (int i = 0; i < capacity; i++) {
+      if (keys[i] != null && keys[i] != TOMBSTONE && values[i] != null && values[i].equals(intValue)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
