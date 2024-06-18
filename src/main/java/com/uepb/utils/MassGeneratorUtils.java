@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * A utility class for generating arrays of integers with various properties.
@@ -44,15 +46,18 @@ public class MassGeneratorUtils {
    * @param rangeUpperBound The upper bound of the range (exclusive).
    * @return An array of unique Integers within the specified range.
    */
-  public static Integer[] generateUniqueIntegerArray(
-      int size,
-      int rangeLowerBound,
-      int rangeUpperBound) {
-    return random.ints(size, rangeLowerBound, rangeUpperBound)
-        .parallel()
-        .distinct()
-        .boxed()
-        .toArray(Integer[]::new);
+  public static Integer[] generateUniqueIntegerArray(int size, int rangeLowerBound, int rangeUpperBound) {
+    if (size > (rangeUpperBound - rangeLowerBound)) {
+      throw new IllegalArgumentException("Size cannot be greater than the range of unique numbers.");
+    }
+
+    Set<Integer> generated = new HashSet<>();
+    while (generated.size() < size) {
+      int next = random.nextInt(rangeUpperBound - rangeLowerBound) + rangeLowerBound;
+      generated.add(next);
+    }
+
+    return generated.toArray(new Integer[0]);
   }
 
   /**
@@ -85,7 +90,7 @@ public class MassGeneratorUtils {
 
     FileUitls.writeArrayToFile(unique100kArrayFile, unique100kArray, false);
 
-    Integer[] repeated300kArray = generateUniqueIntegerArray(300_000, 0, 1_000_000);
+    Integer[] repeated300kArray = generateRepeatedIntegerArray(300_000, 1_000_000);
     Path repeated300kPath = Paths.get("resources/databases/repeated300kArray.txt");
     File repeated300kArrayFile = repeated300kPath.toFile();
 
