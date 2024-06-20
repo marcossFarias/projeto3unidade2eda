@@ -14,6 +14,7 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public abstract class HashTableOpenAddressingBase<K, V> implements Iterable<K> {
   public int collisionCount;
+  public int rehashCount;
   protected double loadFactor;
   protected int capacity, threshold, modificationCount;
 
@@ -159,6 +160,8 @@ public abstract class HashTableOpenAddressingBase<K, V> implements Iterable<K> {
       oldValueTable[i] = null;
       oldKeyTable[i] = null;
     }
+
+    rehashCount++;
   }
 
   // Converts a hash value to an index. Essentially, this strips the

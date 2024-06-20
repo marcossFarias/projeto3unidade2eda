@@ -37,7 +37,7 @@ class Entry<K, V> {
 public class HashTableSeparateChaining<K, V> implements Iterable<K> {
 
   private static final int DEFAULT_CAPACITY = 3;
-  private static final double DEFAULT_LOAD_FACTOR = 0.75;
+  private static final double DEFAULT_LOAD_FACTOR = 10;
 
   public int collisionCount;
 

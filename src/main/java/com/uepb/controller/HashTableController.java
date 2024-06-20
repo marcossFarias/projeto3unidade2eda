@@ -34,6 +34,7 @@ public class HashTableController {
     }
 
     System.out.println("Numero de colisões " + hashTable.collisionCount);
+    System.out.println("Numero de operações de re hash " + hashTable.rehashCount);
 
     File searchFile = new File("resources/databases/repeated300kArray.txt");
     try {
@@ -43,7 +44,7 @@ public class HashTableController {
       for (String line : lines) {
         try {
           int intValue = Integer.parseInt(line.trim());
-          if (hashTable.containsValue(intValue)) {
+          if (hashTable.get(intValue) != null) {
             //System.out.println("Número " + intValue + " encontrado na hash table.");
           } else {
             // System.out.println("Número " + intValue + " não encontrado na hash table.");
@@ -61,6 +62,7 @@ public class HashTableController {
       System.err.println("Erro ao ler o arquivo: " + e.getMessage());
     }
   }
+
 
   public static void testarImplementacoesHash(HashTableSeparateChaining<Integer, String> hashTable) {
     File file = new File("resources/databases/unique100kArray.txt");
@@ -95,8 +97,8 @@ public class HashTableController {
 
       for (String line : lines) {
         try {
-
-          if (hashTable.containsValue(line)) {
+          int intValue = Integer.parseInt(line.trim());
+          if (hashTable.get(intValue) != null) {
             //System.out.println("Número " + line + " encontrado na hash table.");
           } else {
             // System.out.println("Número " + intValue + " não encontrado na hash table.");

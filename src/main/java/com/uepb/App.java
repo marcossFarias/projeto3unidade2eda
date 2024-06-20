@@ -17,11 +17,19 @@ public class App {
     HashTableOpenAddressingBase<Integer, String> hashTable1 = new HashTableLinearProbing();
     HashTableController.testarImplementacoesHash(hashTable1);
 
+    System.err.println();
+
     HashTableQuadraticProbing<Integer, String> hashTable2 = new HashTableQuadraticProbing();
     HashTableController.testarImplementacoesHash(hashTable2);
 
-    //HashTableOpenAddressingBase<Integer, String> hashTable3 = new HashTableDoubleHashing();
-    //HashTableController.testarImplementacoesHash(hashTable3);
+    System.err.println();
+
+    HashTableOpenAddressingBase<Integer, String> hashTable32 = new HashTableDoubleHashing();
+
+    HashTableOpenAddressingBase<Integer, String> hashTable3 = new HashTableDoubleHashing();
+    HashTableController.testarImplementacoesHash(hashTable3);
+
+    System.err.println();
 
     HashTableSeparateChaining<Integer, String> hashTable4 = new HashTableSeparateChaining();
     HashTableController.testarImplementacoesHash(hashTable4);
